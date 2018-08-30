@@ -10,7 +10,7 @@ Globals:
 Parameters:
     intentName:
         Type: String
-        Default: "wecarebillbucket"
+        Default: "BackToPrevious_FoodIntent"
         Description: Name of intent
 
 Resources:
