@@ -8,6 +8,11 @@
 │   └── app.py                  <-- Lambda function code
 └── template.yaml               <-- SAM template
 ```
+
+## Deploy the Lex Chatbot 
+
+Please use the excel file we have provide to create a test chatbot using ExcelLexBot (https://github.com/wongcyrus/ExcelLexBot) .
+
 ## Packaging and deployment
 
 Firstly, we need a `S3 bucket` where we can upload our Lambda functions packaged as ZIP before we deploy anything - If you don't have a S3 bucket to store code artifacts then this is a good time to create one:
@@ -33,3 +38,8 @@ sam deploy \
     --stack-name AWSLexBackToPreviousQuestion \
     --capabilities CAPABILITY_IAM
 ```
+
+## Configuration
+
+Go to the Lex chatbot we have create previous. Turn of the comfimation prompt.
+Also, change `Lambda initialization and validation` and `Fulfillment` to the Lambda function we have deploy above.
