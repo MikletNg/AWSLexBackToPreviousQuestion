@@ -1,9 +1,10 @@
 import logging
+import os
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
-INTENT_NAME = 'testIntent'
+INTENT_NAME = os.environ['INTENT_NAME']  # The intent name of chatbot
 
 
 def delegate(session_attributes, slots):
@@ -104,14 +105,14 @@ def dispatch(intent_request):
     intent_name = intent_request['currentIntent']['name']
     # Match the intent name right or not
     if intent_name == INTENT_NAME:
-        return wecarebill(intent_request)
+        return invoke(intent_request)
     raise Exception('Intent with name ' + intent_name + ' not supported')
 
 
-def wecarebill(intent_request):
+def invoke(intent_request):
     firstname = intent_request['currentIntent']['slots']['firstname']
     lastname = intent_request['currentIntent']['slots']['lastname']
-    phone = intent_request['currentIntent']['slots']['phone']
+    food = intent_request['currentIntent']['slots']['food']
     invocation_source = intent_request['invocationSource']
     intent_name = intent_request['currentIntent']['name']
     slots = intent_request['currentIntent']['slots']
@@ -125,11 +126,11 @@ def wecarebill(intent_request):
         if firstname and not lastname:
             return delegate(session_attributes, slots)
         ######################################################################
-        if firstname and lastname and not phone:
+        if firstname and lastname and not food:
             if lastname == 'back':
                 intent_request['currentIntent']['slots']['firstname'] = None
                 intent_request['currentIntent']['slots']['lastname'] = None
-                x = wecarebill(intent_request)
+                x = invoke(intent_request)
             else:
                 x = delegate(session_attributes, slots)
             return x
@@ -137,18 +138,18 @@ def wecarebill(intent_request):
         return delegate(session_attributes, slots)
 
     elif invocation_source == 'FulfillmentCodeHook':
-        if phone == 'back':
+        if food == 'back':
             intent_request['currentIntent']['slots']['lastname'] = None
-            intent_request['currentIntent']['slots']['phone'] = None
+            intent_request['currentIntent']['slots']['food'] = None
             intent_request['invocationSource'] = 'DialogCodeHook'
-            x = wecarebill(intent_request)
+            x = invoke(intent_request)
         else:
             x = close(
                 session_attributes, 'Fulfilled', {
                     'contentType':
                     'PlainText',
                     'content':
-                    f'[First Name: {firstname}] - [Last Name: {lastname}] - [Phone Number: {phone}]'
+                    f'[First Name: {firstname}] - [Last Name: {lastname}] - [Food: {food}]'
                 })
         return x
 

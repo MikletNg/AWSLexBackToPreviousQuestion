@@ -7,13 +7,19 @@ Description: >
 Globals:
     Function:
         Timeout: 3
-
+Parameters:
+    intentName:
+        Type: String
+        Default: "wecarebillbucket"
+        Description: Name of intent
 
 Resources:
-
     BackToPreviousFunction:
         Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
         Properties:
             CodeUri: lambda_function/
             Handler: app.lambda_handler
             Runtime: python3.6
+            Environment:
+                Variables:
+                    INTENT_NAME: !Ref intentName
