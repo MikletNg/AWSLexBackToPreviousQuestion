@@ -22,7 +22,7 @@ Next, run the following command to package our Lambda function to S3:
 sam package \
     --template-file template.yaml \
     --output-template-file packaged.yaml \
-    --s3-bucket wecarebillbucket
+    --s3-bucket BUCKET_NAME
 ```
 
 Next, the following command will create a Cloudformation Stack and deploy your SAM resources.
@@ -33,13 +33,3 @@ sam deploy \
     --stack-name AWSLexBackToPreviousQuestion \
     --capabilities CAPABILITY_IAM
 ```
-
-> **See [Serverless Application Model (SAM) HOWTO Guide](https://github.com/awslabs/serverless-application-model/blob/master/HOWTO.md) for more details in how to get started.**
-
-After deployment is complete you can run the following command to retrieve the API Gateway Endpoint URL:
-
-```bash
-aws cloudformation describe-stacks \
-    --stack-name AWSLexBackToPreviousQuestion \
-    --query 'Stacks[].Outputs'
-``` 
