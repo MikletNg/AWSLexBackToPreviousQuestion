@@ -27,7 +27,7 @@ Next, run the following command to package our Lambda function to S3:
 sam package \
     --template-file template.yaml \
     --output-template-file packaged.yaml \
-    --s3-bucket qltrail-lab-152-1535690629
+    --s3-bucket BUCKET_NAME
 ```
 
 Next, the following command will create a Cloudformation Stack and deploy your SAM resources.
