@@ -11,7 +11,7 @@
 
 ## Deploy the Lex Chatbot 
 
-Please use the excel file we have provide to create a test chatbot using ExcelLexBot (https://github.com/wongcyrus/ExcelLexBot) .
+Please use the excel file BackToPrevious.xlsx to create a test chatbot using ExcelLexBot (https://github.com/wongcyrus/ExcelLexBot) .
 
 ## Packaging and deployment
 
@@ -27,7 +27,7 @@ Next, run the following command to package our Lambda function to S3:
 sam package \
     --template-file template.yaml \
     --output-template-file packaged.yaml \
-    --s3-bucket BUCKET_NAME
+    --s3-bucket qltrail-lab-152-1535690629
 ```
 
 Next, the following command will create a Cloudformation Stack and deploy your SAM resources.
@@ -38,8 +38,3 @@ sam deploy \
     --stack-name AWSLexBackToPreviousQuestion \
     --capabilities CAPABILITY_IAM
 ```
-
-## Configuration
-
-Go to the Lex chatbot we have create previous. Turn of the comfimation prompt.
-Also, change `Lambda initialization and validation` and `Fulfillment` to the Lambda function we have deploy above.
